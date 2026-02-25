@@ -7,10 +7,13 @@
     >
       <!-- Logo -->
       <div class="h-16 flex items-center px-6 border-b border-surface-100">
-        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white mr-3 shadow-md shadow-primary-500/20">
+        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white mr-3 shadow-md shadow-primary-500/20 flex-shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current"><path d="M216,72H130.67L102.93,35a16.12,16.12,0,0,0-9.6-6.45L35.85,26.17A16.09,16.09,0,0,0,16.29,40.1L16,40.33V208a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM32,41.93l.35-.26,57.51,2.07L114.77,72H32ZM216,208H32V88H216v120Z"></path></svg>
         </div>
-        <span class="font-bold text-lg tracking-tight">TeamStorage</span>
+        <div class="flex flex-col leading-tight">
+          <span class="font-bold text-lg tracking-tight">LKPN</span>
+          <span class="text-[9px] text-surface-400 leading-tight">Laporan Kegiatan Pencegahan Narkoba Langsa</span>
+        </div>
       </div>
 
       <!-- New Button -->

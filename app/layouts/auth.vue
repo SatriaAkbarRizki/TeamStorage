@@ -14,9 +14,9 @@
             <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-500/30">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current"><path d="M216,72H130.67L102.93,35a16.12,16.12,0,0,0-9.6-6.45L35.85,26.17A16.09,16.09,0,0,0,16.29,40.1L16,40.33V208a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM32,41.93l.35-.26,57.51,2.07L114.77,72H32ZM216,208H32V88H216v120Z"></path></svg>
             </div>
-            TeamStorage
+            LKPN
         </h1>
-        <p class="text-surface-500 mt-2">Secure file management for your team</p>
+        <p class="text-surface-500 mt-2 text-sm">Laporan Kegiatan Pencegahan Narkoba Langsa</p>
       </div>
       
       <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8">
@@ -24,7 +24,7 @@
       </div>
 
       <div class="mt-8 text-center text-sm text-surface-400">
-        &copy; {{ new Date().getFullYear() }} TeamStorage. All rights reserved.
+        &copy; {{ new Date().getFullYear() }} LKPN. All rights reserved.
       </div>
     </div>
   </div>
