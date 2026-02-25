@@ -103,7 +103,7 @@
                   <p class="text-xs text-surface-500">{{ authStore.user?.email || 'user@example.com' }}</p>
               </div>
               <img 
-                 :src="authStore.user?.avatar || 'https://ui-avatars.com/api/?name=User'" 
+                 :src="authStore.avatarUrl" 
                  alt="Profile" 
                  class="h-9 w-9 rounded-full border border-surface-200 object-cover"
               >

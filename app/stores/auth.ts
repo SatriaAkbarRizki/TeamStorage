@@ -2,71 +2,75 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        user: null as { name: string; email: string; avatar?: string } | null,
+        user: null as { id: number; name: string; email: string; image_path: string | null } | null,
         isAuthenticated: false,
-        _hydrated: false,
     }),
+
+    getters: {
+        avatarUrl: (state) => {
+            if (!state.user) return 'https://ui-avatars.com/api/?name=User'
+            if (state.user.image_path) {
+                const config = useRuntimeConfig()
+                return `${config.public.apiBase}${state.user.image_path}`
+            }
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(state.user.name)}&background=0ea5e9&color=fff`
+        }
+    },
+
     actions: {
-        // Hydrate state from localStorage
-        hydrate() {
-            if (import.meta.client && !this._hydrated) {
-                const stored = localStorage.getItem('auth')
-                if (stored) {
-                    try {
-                        const data = JSON.parse(stored)
-                        this.user = data.user
-                        this.isAuthenticated = data.isAuthenticated
-                    } catch (e) {
-                        console.error('Failed to parse auth data:', e)
-                    }
-                }
-                this._hydrated = true
-            }
-        },
-
-        // Save state to localStorage
-        persist() {
-            if (import.meta.client) {
-                localStorage.setItem('auth', JSON.stringify({
-                    user: this.user,
-                    isAuthenticated: this.isAuthenticated
-                }))
-            }
-        },
-
         async login(email: string, password: string): Promise<boolean> {
-            // Mock login logic
-            if (email && password) {
-                this.user = {
-                    name: 'Demo User',
-                    email: email,
-                    avatar: `https://ui-avatars.com/api/?name=Demo+User&background=0ea5e9&color=fff`
+            const config = useRuntimeConfig()
+            try {
+                const res = await $fetch<{ success: boolean; message: string; data: any }>(`${config.public.apiBase}/auth/login`, {
+                    method: 'POST',
+                    body: { email, password },
+                    credentials: 'include',
+                })
+                if (res.success && res.data) {
+                    this.user = res.data
+                    this.isAuthenticated = true
+                    return true
+                } else {
+                    alert('Login gagal: ' + res.message)
+                    return false
                 }
-                this.isAuthenticated = true
-                this.persist()
-                return true
+            } catch (err: any) {
+                const msg = err?.data?.message || 'Terjadi kesalahan saat login. Periksa email dan password Anda.'
+                alert(msg)
+                return false
             }
-            return false
         },
 
-        register(name: string, email: string, password: string) {
-            // Mock register
-            this.user = {
-                name: name,
-                email: email,
-                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0ea5e9&color=fff`
+        async register(name: string, email: string, password: string, fileImage?: File): Promise<boolean> {
+            const config = useRuntimeConfig()
+            try {
+                const form = new FormData()
+                form.append('name', name)
+                form.append('email', email)
+                form.append('password', password)
+                if (fileImage) form.append('fileImage', fileImage)
+
+                const res = await $fetch<{ success: boolean; message: string; data: any }>(`${config.public.apiBase}/auth/register`, {
+                    method: 'POST',
+                    body: form,
+                    credentials: 'include',
+                })
+                if (res.success) {
+                    return true
+                } else {
+                    alert('Pendaftaran gagal: ' + res.message)
+                    return false
+                }
+            } catch (err: any) {
+                const msg = err?.data?.message || 'Terjadi kesalahan saat mendaftar.'
+                alert(msg)
+                return false
             }
-            this.isAuthenticated = true
-            this.persist()
-            return true
         },
 
         logout() {
             this.user = null
             this.isAuthenticated = false
-            if (import.meta.client) {
-                localStorage.removeItem('auth')
-            }
             return navigateTo('/login')
         }
     },
