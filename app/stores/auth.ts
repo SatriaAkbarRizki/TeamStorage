@@ -74,4 +74,7 @@ export const useAuthStore = defineStore('auth', {
             return navigateTo('/login')
         }
     },
+
+    // Persist auth state to localStorage so page refreshes don't log the user out
+    persist: true,
 })
