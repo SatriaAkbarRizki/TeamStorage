@@ -81,7 +81,7 @@
         </button>
 
         <!-- Search Bar -->
-        <div class="flex-1 max-w-xl mx-auto px-4 hidden md:block">
+        <div class="flex-1 max-w-xl mx-auto px-2 md:px-4">
           <div class="relative group">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 text-surface-400 group-focus-within:text-primary-500 transition-colors fill-current"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
@@ -90,7 +90,7 @@
               v-model="driveStore.searchQuery"
               type="text"
               class="block w-full pl-10 pr-3 py-2 border border-surface-200 rounded-xl leading-5 bg-surface-50 text-surface-900 placeholder-surface-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all sm:text-sm"
-              placeholder="Search files, folders..."
+              placeholder="Search..."
             >
           </div>
         </div>

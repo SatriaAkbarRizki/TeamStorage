@@ -13,8 +13,8 @@
         <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-12 h-12 fill-current text-blue-400"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"/></svg>
       </div>
 
-      <button class="absolute top-2 right-2 p-1 bg-white/80 backdrop-blur-sm rounded-full text-surface-600 hover:text-surface-900 shadow-sm" @click.stop="$emit('options', $event)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"/></svg>
+      <button class="absolute top-2 right-2 p-2 bg-white/90 backdrop-blur-sm rounded-lg text-surface-500 hover:text-primary-600 shadow-sm border border-surface-100 transition-all active:scale-95" @click.stop="$emit('options', $event)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current"><path d="M112,64a16,16,0,1,1,16,16A16,16,0,0,1,112,64Zm16,48a16,16,0,1,0,16,16A16,16,0,0,0,128,112Zm0,64a16,16,0,1,0,16,16A16,16,0,0,0,128,176Z"/></svg>
       </button>
     </div>
     
