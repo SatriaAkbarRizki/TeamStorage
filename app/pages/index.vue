@@ -91,28 +91,6 @@
       </div>
     </section>
 
-    <!-- Stats Bar -->
-    <section class="bg-white border-y border-surface-100 py-8">
-      <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <p class="text-3xl font-extrabold text-primary-600">120+</p>
-          <p class="text-sm text-surface-500 mt-1">Laporan Selesai</p>
-        </div>
-        <div>
-          <p class="text-3xl font-extrabold text-primary-600">35</p>
-          <p class="text-sm text-surface-500 mt-1">Kegiatan Aktif</p>
-        </div>
-        <div>
-          <p class="text-3xl font-extrabold text-primary-600">18</p>
-          <p class="text-sm text-surface-500 mt-1">Unit Terlibat</p>
-        </div>
-        <div>
-          <p class="text-3xl font-extrabold text-primary-600">5.000+</p>
-          <p class="text-sm text-surface-500 mt-1">Peserta Terjangkau</p>
-        </div>
-      </div>
-    </section>
-
     <!-- About Section -->
     <section id="tentang" class="py-24 bg-surface-50">
       <div class="max-w-5xl mx-auto px-6">
@@ -140,7 +118,7 @@
             </div>
             <h3 class="text-lg font-bold text-surface-900 mb-3">Definisi & Latar Belakang</h3>
             <p class="text-surface-500 leading-relaxed text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Website LKPN (Laporan Kegiatan Pencegahan Narkoba Langsa) merupakan platform digital internal untuk pengelolaan dokumen bidang pencegahan. Sistem ini menyediakan fasilitas penyimpanan, pengunduhan, dan berbagi dokumen. Platform ini dirancang meningkatkan efisiensi serta keteraturan administrasi. Seluruh dokumen dikelola dalam lingkungan yang terkontrol.
             </p>
           </div>
 
@@ -153,7 +131,7 @@
             </div>
             <h3 class="text-lg font-bold text-surface-900 mb-3">Siapa yang Terlibat?</h3>
             <p class="text-surface-500 leading-relaxed text-sm">
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo, volutpat lacus facilisis in.
+              Website ini diperuntukkan bagi seluruh pegawai bidang pencegahan, mulai dari Ketua Tim hingga staf. Setiap pengguna memiliki akun terdaftar untuk mengakses sistem. Akses dibatasi hanya untuk internal guna menjaga keamanan data. Pengelolaan akun dilakukan secara terkontrol oleh pihak berwenang. Hal ini memastikan sistem digunakan sesuai dengan kebutuhan dan kewenangan masing-masing.
             </p>
           </div>
 
@@ -166,7 +144,7 @@
             </div>
             <h3 class="text-lg font-bold text-surface-900 mb-3">Tujuan & Manfaat</h3>
             <p class="text-surface-500 leading-relaxed text-sm">
-              Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis, praesent dapibus, neque id cursus faucibus.
+              Website LKPN bertujuan mempermudah pengelolaan dokumen kegiatan pencegahan. Sistem ini mempercepat proses penyimpanan dan pencarian dokumen. Koordinasi antara ketua dan staf menjadi lebih efisien. Secara keseluruhan, sistem ini mendukung produktivitas dan profesionalisme kerja.
             </p>
           </div>
 
@@ -179,29 +157,11 @@
             </div>
             <h3 class="text-lg font-bold text-surface-900 mb-3">Bagaimana Cara Kerjanya?</h3>
             <p class="text-surface-500 leading-relaxed text-sm">
-              Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ornare quis, nibh. Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.
+              Pegawai yang belum memiliki akun dapat melakukan registrasi sesuai prosedur yang berlaku. Setelah terdaftar, pengguna dapat masuk melalui proses login yang aman. Pengguna dapat mengunggah, mengunduh, dan mengelola dokumen sesuai kewenangan. Seluruh dokumen tersimpan dalam sistem terpusat. Sistem memastikan setiap aktivitas tercatat dan terjaga keamanannya.
             </p>
           </div>
         </div>
 
-        <!-- Full Description -->
-        <div class="bg-white rounded-2xl border border-surface-100 shadow-sm p-8 md:p-12">
-          <h3 class="text-xl font-bold text-surface-900 mb-6 flex items-center gap-3">
-            <span class="w-1.5 h-6 bg-primary-500 rounded-full inline-block"></span>
-            Penjelasan Lengkap
-          </h3>
-          <div class="prose prose-sm max-w-none text-surface-500 leading-relaxed space-y-4">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p>
-              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est.
-            </p>
-            <p>
-              At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
