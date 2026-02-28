@@ -55,6 +55,7 @@
           <div class="flex items-center gap-3 bg-white/10 rounded-xl p-3">
             <img
               :src="uploaderAvatar"
+              @error="($event.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(file?.userName || 'User')}&background=dfdfdf&color=333`"
               alt="Uploader avatar"
               class="w-9 h-9 rounded-full object-cover flex-shrink-0"
             />
@@ -107,8 +108,8 @@ const isPdf = computed(() => file.value?.fileType === 'application/pdf')
 
 const uploaderAvatar = computed(() => {
   if (!file.value) return ''
-  if (file.value.imageAvatar) return `${config.public.apiBase}${file.value.imageAvatar}`
-  return `https://ui-avatars.com/api/?name=${encodeURIComponent(file.value.userName)}&background=0ea5e9&color=fff`
+  if (file.value.imageAvatar) return `${config.public.apiBase}/general/downloadavatar?avatar=${file.value.imageAvatar}`
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(file.value.userName)}&background=dfdfdf&color=333`
 })
 
 const formatSize = (bytes: number) => {

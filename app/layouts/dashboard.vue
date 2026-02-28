@@ -124,6 +124,7 @@
               </div>
               <img 
                  :src="authStore.avatarUrl" 
+                 @error="($event.target as HTMLImageElement).src = authStore.fallbackAvatarUrl"
                  alt="Profile" 
                  class="h-9 w-9 rounded-full border border-surface-200 object-cover"
               >

@@ -8,12 +8,16 @@ export const useAuthStore = defineStore('auth', {
 
     getters: {
         avatarUrl: (state) => {
-            if (!state.user) return 'https://ui-avatars.com/api/?name=User'
+            if (!state.user) return 'https://ui-avatars.com/api/?name=User&background=dfdfdf&color=333'
             if (state.user.image_path) {
                 const config = useRuntimeConfig()
-                return `${config.public.apiBase}${state.user.image_path}`
+                return `${config.public.apiBase}/general/downloadavatar?avatar=${state.user.image_path}`
             }
-            return `https://ui-avatars.com/api/?name=${encodeURIComponent(state.user.name)}&background=0ea5e9&color=fff`
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(state.user.name)}&background=dfdfdf&color=333`
+        },
+        fallbackAvatarUrl: (state) => {
+            if (!state.user) return 'https://ui-avatars.com/api/?name=User&background=dfdfdf&color=333'
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(state.user.name)}&background=dfdfdf&color=333`
         }
     },
 
