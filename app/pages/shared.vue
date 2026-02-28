@@ -47,7 +47,7 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-surface-100">
-          <tr v-for="item in driveStore.sharedFiles" :key="item.id" class="hover:bg-surface-50 transition-colors">
+          <tr v-for="item in [...driveStore.sharedFiles].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())" :key="item.id" class="hover:bg-surface-50 transition-colors">
             <!-- Token -->
             <td class="px-6 py-4">
               <div class="flex items-center gap-2">
