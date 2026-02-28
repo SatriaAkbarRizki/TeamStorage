@@ -39,14 +39,24 @@
         </div>
       </div>
 
+      <!-- Search Results Banner -->
+      <div v-if="driveStore.isSearching" class="mb-4 flex items-center gap-2 text-sm text-surface-500">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-4 h-4 fill-current"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+        <span>Menampilkan hasil pencarian untuk "<strong class="text-surface-900">{{ driveStore.searchQuery }}</strong>"</span>
+        <span class="bg-surface-100 text-surface-600 rounded-full px-2 py-0.5 text-xs">
+          {{ driveStore.currentFolders.length + driveStore.currentFiles.length }} hasil
+        </span>
+      </div>
+
       <!-- Empty State -->
       <div v-if="driveStore.currentFolders.length === 0 && driveStore.currentFiles.length === 0" class="flex flex-col items-center justify-center p-12 text-center border-2 border-dashed border-surface-200 rounded-2xl bg-surface-50">
         <div class="w-16 h-16 bg-surface-100 rounded-full flex items-center justify-center mb-4 text-surface-400">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-8 h-8 fill-current"><path d="M216,72H130.67L102.93,35a16.12,16.12,0,0,0-9.6-6.45L35.85,26.17A16.09,16.09,0,0,0,16.29,40.1L16,40.33V208a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM32,41.93l.35-.26,57.51,2.07L114.77,72H32ZM216,208H32V88H216v120Z"/></svg>
+          <svg v-if="driveStore.isSearching" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-8 h-8 fill-current"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-8 h-8 fill-current"><path d="M216,72H130.67L102.93,35a16.12,16.12,0,0,0-9.6-6.45L35.85,26.17A16.09,16.09,0,0,0,16.29,40.1L16,40.33V208a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM32,41.93l.35-.26,57.51,2.07L114.77,72H32ZM216,208H32V88H216v120Z"/></svg>
         </div>
-        <h3 class="text-lg font-medium text-surface-900">Folder ini kosong</h3>
-        <p class="text-surface-500 mt-1 mb-6">Unggah file atau buat folder untuk memulai</p>
-        <button @click="driveStore.openModal('upload')" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20">
+        <h3 class="text-lg font-medium text-surface-900">{{ driveStore.isSearching ? 'Tidak ada hasil' : 'Folder ini kosong' }}</h3>
+        <p class="text-surface-500 mt-1 mb-6">{{ driveStore.isSearching ? 'Coba kata kunci lain' : 'Unggah file atau buat folder untuk memulai' }}</p>
+        <button v-if="!driveStore.isSearching" @click="driveStore.openModal('upload')" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20">
           Unggah File
         </button>
       </div>
@@ -126,6 +136,12 @@
       :currentName="selectedItemName"
       @close="activeAction = null" 
     />
+
+    <ShareModal
+      :show="activeAction === 'share'"
+      :fileId="selectedItemId"
+      @close="activeAction = null"
+    />
   </div>
 </template>
 
@@ -140,8 +156,9 @@ definePageMeta({
 const driveStore = useDriveStore()
 
 // Load root data on mount
-onMounted(() => {
-  driveStore.fetchData(null)
+onMounted(async () => {
+  await driveStore.fetchData(null)
+  await driveStore.fetchDiskUsage()
 })
 
 // Context Menu State
@@ -149,7 +166,7 @@ const contextMenu = reactive({ show: false, x: 0, y: 0 })
 const selectedItemId = ref<number | null>(null)
 const selectedItemType = ref<'file' | 'folder' | null>(null)
 const selectedItemName = ref<string>('')
-const activeAction = ref<'move' | 'rename' | null>(null)
+const activeAction = ref<'move' | 'rename' | 'share' | null>(null)
 
 const openContextMenu = (e: MouseEvent, id: number, type: 'file' | 'folder', name: string) => {
   e.preventDefault()
@@ -188,6 +205,9 @@ const handleContextAction = async (action: string) => {
       break
     case 'rename':
       activeAction.value = 'rename'
+      break
+    case 'share':
+      activeAction.value = 'share'
       break
     case 'download':
       if (selectedItemType.value === 'file') {

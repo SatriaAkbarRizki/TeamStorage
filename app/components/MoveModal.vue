@@ -94,7 +94,7 @@ const loadFolders = async (parentId: number | null) => {
   loading.value = true
   try {
     const id = parentId ?? 0
-    const res = await $fetch<{ success: boolean; data: { folders: ApiFolder[] } }>(`${config.public.apiBase}/folder/getdata?id=${id}`, {
+    const res = await $fetch<{ success: boolean; data: { folders: ApiFolder[] } }>(`${config.public.apiBase}/general/getdata?id=${id}`, {
       credentials: 'include',
     })
     fetchedFolders.value = res.data?.folders ?? []
