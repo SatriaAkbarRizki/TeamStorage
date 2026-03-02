@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Blue Ocean Background -->
+  <rect width="256" height="256" rx="64" fill="#0ea5e9"/>
+  <!-- White Folder Icon -->
+  <path d="M216,72H130.67L102.93,35a16.12,16.12,0,0,0-9.6-6.45L35.85,26.17A16.09,16.09,0,0,0,16.29,40.1L16,40.33V208a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72Z" fill="#ffffff" transform="scale(0.7) translate(55, 55)"/>
+</svg>
