@@ -6,8 +6,9 @@
         <div class="flex items-center gap-3">
           <div class="p-2.5 bg-surface-100 rounded-xl">
             <svg v-if="file?.fileType === 'application/pdf'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current text-red-500"><path d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V144a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM128,136H88a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h40a8,8,0,0,0,8-8V144A8,8,0,0,0,128,136Zm-8,64H96V152h24Zm-72,8H64V184H80a8,8,0,0,0,0-16H64V152H80a8,8,0,0,0,0-16H48a8,8,0,0,0-8,8v64A8,8,0,0,0,48,208Zm160-52V40a8,8,0,0,0-8-8H96L48,80v16a8,8,0,0,1-16,0V80A24,24,0,0,1,56,56h32V24a8,8,0,0,1,16,0V56h96v96a8,8,0,0,1,0,16Z"/></svg>
+            <svg v-else-if="file?.fileType.startsWith('image/')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current text-purple-500"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm-4.69,168H44.69l46.2-61.6,23.37,31.16a8,8,0,0,0,12.74.08L166,125.66l45.31,82.34ZM216,195.42,166,104.58a8,8,0,0,0-14-.08l-38.94,51.92-23.4-31.2a8,8,0,0,0-12.71-.09L40,174.58V56H216V195.42ZM96,108a12,12,0,1,1,12-12A12,12,0,0,1,96,108Z"/></svg>
             <svg v-else-if="file?.fileType.startsWith('video/')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current text-blue-500"><path d="M164.44,105.34l-48-32A8,8,0,0,0,104,80v64a8,8,0,0,0,12.44,6.66l48-32a8,8,0,0,0,0-13.32ZM120,129.05V95l29.56,17ZM216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200Z"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current text-purple-500"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"/></svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-6 h-6 fill-current text-primary-500"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="font-semibold text-surface-900 truncate max-w-[200px] md:max-w-md" :title="file?.nameFile">{{ file?.nameFile }}</h3>
@@ -32,6 +33,16 @@
           :src="`${objectUrl}#toolbar=0&navpanes=0&scrollbar=0`" 
           class="w-full h-full border-none"
         ></iframe>
+
+        <!-- Image Preview -->
+        <div v-else-if="file?.fileType.startsWith('image/')" class="w-full h-full flex items-center justify-center p-4">
+          <img 
+            v-if="objectUrl" 
+            :src="objectUrl" 
+            :alt="file?.nameFile" 
+            class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+          />
+        </div>
 
         <!-- Video Preview -->
         <video 
@@ -107,8 +118,8 @@ watch(() => props.show, async (newVal) => {
       objectUrl.value = null
     }
 
-    // For PDFs, fetch as blob to prevent new tab redirection
-    if (props.file.fileType === 'application/pdf') {
+    // For PDFs and Images, fetch as blob to prevent redirection and handle authorization
+    if (props.file.fileType === 'application/pdf' || props.file.fileType.startsWith('image/')) {
       try {
         const response = await $fetch<Blob>(`${config.public.apiBase}/files/download?id=${props.file.id}`, {
           responseType: 'blob',
@@ -116,7 +127,7 @@ watch(() => props.show, async (newVal) => {
         })
         objectUrl.value = URL.createObjectURL(response)
       } catch (err) {
-        console.error('Failed to load PDF blob:', err)
+        console.error('Failed to load file blob:', err)
       }
     }
     
