@@ -69,7 +69,7 @@
           :folders="driveStore.currentFolders"
           :files="driveStore.currentFiles"
           @open-folder="(folder) => driveStore.setCurrentFolder(folder)"
-          @open-file="(file) => driveStore.downloadFile(file.id, file.nameFile)"
+          @open-file="(file) => openPreview(file)"
           @options="(e, id, type, name) => openContextMenu(e, id, type, name)"
         />
 
@@ -102,7 +102,7 @@
                 :key="file.id"
                 :file="file"
                 @options="(e) => openContextMenu(e, file.id, 'file', file.nameFile)"
-                @download="driveStore.downloadFile(file.id, file.nameFile)"
+                @preview="(file) => openPreview(file)"
               />
             </div>
           </section>
@@ -142,6 +142,12 @@
       :fileId="selectedItemId"
       @close="activeAction = null"
     />
+
+    <FilePreviewModal
+      :show="showPreview"
+      :file="selectedFileForPreview"
+      @close="showPreview = false"
+    />
   </div>
 </template>
 
@@ -167,6 +173,15 @@ const selectedItemId = ref<number | null>(null)
 const selectedItemType = ref<'file' | 'folder' | null>(null)
 const selectedItemName = ref<string>('')
 const activeAction = ref<'move' | 'rename' | 'share' | null>(null)
+
+// Preview State
+const showPreview = ref(false)
+const selectedFileForPreview = ref<any>(null)
+
+const openPreview = (file: any) => {
+  selectedFileForPreview.value = file
+  showPreview.value = true
+}
 
 const openContextMenu = (e: MouseEvent, id: number, type: 'file' | 'folder', name: string) => {
   e.preventDefault()
@@ -200,7 +215,9 @@ const handleContextAction = async (action: string) => {
       if (selectedItemType.value === 'folder') {
         driveStore.setCurrentFolder({ id: selectedItemId.value, name: selectedItemName.value })
       } else {
-        driveStore.downloadFile(selectedItemId.value, selectedItemName.value)
+        const file = driveStore.files.find(f => f.id === selectedItemId.value) || 
+                     driveStore.searchResults.files.find(f => f.id === selectedItemId.value)
+        if (file) openPreview(file)
       }
       break
     case 'rename':

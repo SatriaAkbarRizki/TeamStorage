@@ -262,6 +262,7 @@ export const useDriveStore = defineStore('drive', {
             const form = new FormData()
             for (const f of files) form.append('files', f)
             if (this.currentFolderId !== null) form.append('folderId', String(this.currentFolderId))
+            this.loading = true
             try {
                 await $fetch(`${config.public.apiBase}/files/upload`, {
                     method: 'POST',
@@ -274,6 +275,8 @@ export const useDriveStore = defineStore('drive', {
             } catch (err: any) {
                 const msg = err?.data?.message || 'Gagal mengunggah file.'
                 alert('Gagal mengunggah file: ' + msg)
+            } finally {
+                this.loading = false
             }
         },
 

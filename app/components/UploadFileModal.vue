@@ -2,6 +2,7 @@
   <BaseModal 
     :show="driveStore.activeModal === 'upload'" 
     title="Unggah File" 
+    size="lg"
     @close="driveStore.closeModal()"
   >
     <div class="space-y-4">
@@ -49,12 +50,15 @@
     <template #footer>
       <button 
         type="button"
-        :disabled="selectedFiles.length === 0 || uploading"
-        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="selectedFiles.length === 0 || driveStore.loading"
+        class="w-full inline-flex justify-center items-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         @click="handleUpload"
       >
-        <span v-if="uploading" class="animate-spin mr-2">⟳</span>
-        {{ uploading ? 'Mengunggah...' : `Unggah ${selectedFiles.length > 0 ? selectedFiles.length + ' File' : ''}` }}
+        <svg v-if="driveStore.loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        {{ driveStore.loading ? 'Mengunggah...' : `Unggah ${selectedFiles.length > 0 ? selectedFiles.length + ' File' : ''}` }}
       </button>
       <button 
         type="button" 
@@ -74,7 +78,6 @@ const driveStore = useDriveStore()
 const fileInput = ref<HTMLInputElement | null>(null)
 const selectedFiles = ref<File[]>([])
 const isDragging = ref(false)
-const uploading = ref(false)
 
 // Reset when modal closes
 watch(() => driveStore.activeModal, (val) => {
@@ -114,10 +117,10 @@ const removeFile = (index: number) => {
 
 const handleUpload = async () => {
   if (selectedFiles.value.length === 0) return
-  uploading.value = true
   await driveStore.uploadFiles(selectedFiles.value)
-  uploading.value = false
-  selectedFiles.value = []
-  driveStore.closeModal()
+  if (!driveStore.error) {
+    selectedFiles.value = []
+    driveStore.closeModal()
+  }
 }
 </script>

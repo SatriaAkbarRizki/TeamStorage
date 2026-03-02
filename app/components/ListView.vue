@@ -46,7 +46,7 @@
           v-for="file in files" 
           :key="file.id" 
           class="hover:bg-surface-50 cursor-pointer group transition-colors"
-          @dblclick="$emit('open-file', file)"
+          @click="$emit('open-file', file)"
           @contextmenu.prevent="$emit('options', $event, file.id, 'file', file.nameFile)"
         >
           <td class="px-6 py-4 whitespace-nowrap">

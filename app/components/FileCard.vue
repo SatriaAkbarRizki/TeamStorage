@@ -1,7 +1,7 @@
 <template>
   <div 
     class="bg-white border border-surface-200 rounded-xl overflow-hidden hover:shadow-md hover:border-primary-200 cursor-pointer transition-all group flex flex-col h-48 relative"
-    @dblclick="$emit('download')"
+    @click="$emit('preview', file)"
     @contextmenu.prevent="$emit('options', $event)"
   >
     <!-- Thumbnail Area -->
@@ -32,7 +32,7 @@ import { useDriveStore } from '~/stores/drive'
 import type { ApiFile } from '~/stores/drive'
 
 defineProps<{ file: ApiFile }>()
-defineEmits(['options', 'download'])
+defineEmits(['options', 'preview'])
 
 const driveStore = useDriveStore()
 </script>
