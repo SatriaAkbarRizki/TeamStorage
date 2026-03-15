@@ -1,0 +1,7 @@
+services:
+  lkpn-web:
+    build: .
+    container_name: lkpn-web
+    restart: always
+    ports:
+      - 3000:3000
