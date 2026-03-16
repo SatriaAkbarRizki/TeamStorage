@@ -6,7 +6,7 @@ services:
     ports:
       - 3000:3000
 
-network:
+networks:
   tunnel_net:
     external: true
     name: network_tunnelweblkpn
