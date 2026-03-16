@@ -5,3 +5,8 @@ services:
     restart: always
     ports:
       - 3000:3000
+
+network:
+  tunnel_net:
+    external: true
+    name: network_tunnelweblkpn
