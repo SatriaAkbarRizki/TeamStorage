@@ -50,12 +50,12 @@
              My Drive
            </a>
 
-           <NuxtLink to="/shared" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors" :class="route.path === '/shared' ? 'bg-primary-50 text-primary-700' : 'text-surface-700 hover:bg-surface-50 hover:text-surface-900'">
+           <NuxtLink to="/shared" @click="driveStore.setFilter(null)" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors" :class="route.path === '/shared' && !driveStore.currentFilter ? 'bg-primary-50 text-primary-700' : 'text-surface-700 hover:bg-surface-50 hover:text-surface-900'">
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current"><path d="M192,160a31.84,31.84,0,0,0-21.84,8.59l-52.3-31.38a32,32,0,0,0,0-18.42l52.3-31.38A32,32,0,1,0,160,64a31.88,31.88,0,0,0,2.16,11.58l-52.3,31.38a32,32,0,1,0,0,42.08l52.3,31.38A31.88,31.88,0,0,0,160,192a32,32,0,1,0,32-32Z"></path></svg>
              Shared Files
            </NuxtLink>
 
-           <a href="#" @click.prevent="driveStore.setFilter('trash')" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors" :class="driveStore.currentFilter === 'trash' ? 'bg-primary-50 text-primary-700' : 'text-surface-700 hover:bg-surface-50 hover:text-surface-900'">
+           <a href="#" @click.prevent="goToTrash" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors" :class="driveStore.currentFilter === 'trash' ? 'bg-primary-50 text-primary-700' : 'text-surface-700 hover:bg-surface-50 hover:text-surface-900'">
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path></svg>
              Trash
            </a>
@@ -204,6 +204,11 @@ const isMyDriveActive = computed(() =>
 
 const goToMyDrive = () => {
   driveStore.setCurrentFolder(null)
+  if (route.path !== '/dashboard') router.push('/dashboard')
+}
+
+const goToTrash = () => {
+  driveStore.setFilter('trash')
   if (route.path !== '/dashboard') router.push('/dashboard')
 }
 
