@@ -40,23 +40,23 @@
       <table class="min-w-full divide-y divide-surface-100">
         <thead class="bg-surface-50">
           <tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-surface-500 uppercase tracking-wider">Nama</th>
             <th class="px-6 py-3 text-left text-xs font-semibold text-surface-500 uppercase tracking-wider">Token</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-surface-500 uppercase tracking-wider">File ID</th>
             <th class="px-6 py-3 text-left text-xs font-semibold text-surface-500 uppercase tracking-wider">Dibuat</th>
             <th class="px-6 py-3 text-right text-xs font-semibold text-surface-500 uppercase tracking-wider">Aksi</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-surface-100">
           <tr v-for="item in [...driveStore.sharedFiles].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())" :key="item.id" class="hover:bg-surface-50 transition-colors">
+            <!-- Name -->
+            <td class="px-6 py-4">
+              <span class="text-sm font-medium text-surface-900">{{ item.username }}</span>
+            </td>
             <!-- Token -->
             <td class="px-6 py-4">
               <div class="flex items-center gap-2">
                 <span class="font-mono text-sm text-surface-700 bg-surface-100 px-2 py-1 rounded">{{ item.token }}</span>
               </div>
-            </td>
-            <!-- File ID -->
-            <td class="px-6 py-4">
-              <span class="text-sm text-surface-600">File #{{ item.fileId }}</span>
             </td>
             <!-- Created At -->
             <td class="px-6 py-4">

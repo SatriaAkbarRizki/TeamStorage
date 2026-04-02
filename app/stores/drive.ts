@@ -28,6 +28,7 @@ export interface SharedFileEntry {
     fileId: number
     token: string
     uploadBy: number
+    username?: string
     createdAt: string
 }
 
